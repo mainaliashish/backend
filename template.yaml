@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+  Sample SAM Template for sam-app
+
+Globals:
+  Function:
+    Timeout: 60
+    MemorySize: 128
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  DatabaseLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: DBLayer
+      Description: A layer for setting up database connection
+      ContentUri: layers/utils/
+      CompatibleRuntimes:
+        - python3.11
+  GetMyInformationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_all_info
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers: !Ref DatabaseLayer
+      Architecture:
+        - x86_64
+      Events:
+        GetInfo:
+          Type: Api
+          Properties:
+            Path: /get_info
+            Method: get
