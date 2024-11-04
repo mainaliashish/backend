@@ -3,7 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   sam-app
   Sample SAM Template for sam-app
-
 Globals:
   Function:
     Timeout: 60
@@ -19,18 +18,19 @@ Resources:
       ContentUri: layers/utils/
       CompatibleRuntimes:
         - python3.11
-  GetMyInformationFunction:
+  GetMyBasicInformationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: info/get_all_info
+      CodeUri: info/get_basic_info/
       Handler: app.lambda_handler
       Runtime: python3.11
-      Layers: !Ref DatabaseLayer
-      Architecture:
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
         - x86_64
       Events:
-        GetInfo:
+        GetBasicInfo:
           Type: Api
           Properties:
-            Path: /get_info
+            Path: /get_basic_info
             Method: get
