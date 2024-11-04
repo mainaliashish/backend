@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from pymysql import pymysql  # type: ignore
+import pymysql  # type: ignore
+from datetime import datetime
 
 
 current_directory = os.path.dirname(__file__)
@@ -30,3 +31,26 @@ class Database:
         if cls.connection:
             cls.connection.close()
             cls.connection = None
+
+
+def set_response_headers(header):
+    return {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': f'OPTIONS,{header}',
+        'Access-Control-Allow-Headers': (
+            'Content-Type,X-Amz-Date,Authorization,'
+            'X-Api-Key,X-Amz-Security-Token'
+        )
+    }
+
+
+def convert_datetime_in_dict(row):
+    """Convert any datetime objects in a dictionary to strings."""
+    converted_row = {}
+    for key, value in row.items():
+        if isinstance(value, datetime):
+            converted_row[key] = value.isoformat()
+        else:
+            converted_row[key] = value
+    return converted_row
