@@ -1,0 +1,8 @@
+{
+  "httpMethod": "GET",
+  "path": "/get_extra_info/1",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "isBase64Encoded": false
+}
