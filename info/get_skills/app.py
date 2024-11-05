@@ -16,9 +16,12 @@ def create_response(status_code, message, results=None):
 
 def execute_query(connection, userId):
     with connection.cursor() as cursor:
-        query = 'SELECT * FROM users WHERE userId = %s'
+        query = '''SELECT S.name
+                FROM user_skills US
+                JOIN skills S
+                ON US.skillId = S.id WHERE US.userId = %s'''
         cursor.execute(query, (userId,))
-        return cursor.fetchone()
+        return cursor.fetchall()
 
 
 def lambda_handler(event, context):
@@ -29,7 +32,7 @@ def lambda_handler(event, context):
         results = execute_query(connection, userId)
         if not results:
             return create_response(404, 'error', 'No results found.')
-        final_results = [convert_datetime_in_dict(results)]
+        final_results = [convert_datetime_in_dict(row) for row in results]
         return create_response(200, 'success', final_results)
     except Exception as e:
         print(str(e))

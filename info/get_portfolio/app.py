@@ -16,7 +16,7 @@ def create_response(status_code, message, results=None):
 
 def execute_query(connection, userId):
     with connection.cursor() as cursor:
-        query = 'SELECT * FROM users WHERE userId = %s'
+        query = 'SELECT * FROM portfolio WHERE userId = %s'
         cursor.execute(query, (userId,))
         return cursor.fetchone()
 
