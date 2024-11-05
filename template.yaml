@@ -32,5 +32,117 @@ Resources:
         GetBasicInfo:
           Type: Api
           Properties:
-            Path: /get_basic_info
+            Path: /get_basic_info/{userId}
+            Method: get
+  UpdateMyBasicInformationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/update_basic_info/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetBasicInfo:
+          Type: Api
+          Properties:
+            Path: /update_basic_info/{userId}/update
+            Method: put
+  GetMyExtraInformationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_extra_info/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_extra_info/{userId}
+            Method: get
+  GetEducationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_education_info/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_education_info/{userId}
+            Method: get
+  GetWorkHistoryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_work_info/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_work_info/{userId}
+            Method: get
+  GetSkillsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_skills/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_skills/{userId}
+            Method: get
+  GetSkillsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_projects/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_projects/{userId}
+            Method: get
+  GetPortfolioFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: info/get_portfolio/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Layers:
+        - !Ref DatabaseLayer
+      Architectures:
+        - x86_64
+      Events:
+        GetExtraInfo:
+          Type: Api
+          Properties:
+            Path: /get_portfolio/{userId}
             Method: get

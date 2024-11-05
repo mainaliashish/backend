@@ -64,7 +64,7 @@ Temporary Items
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
-
+.aws-sam
 # CMake
 cmake-build-debug/
 
