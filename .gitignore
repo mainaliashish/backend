@@ -168,6 +168,8 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+note.md
+
 # Sphinx documentation
 docs/_build/
 
