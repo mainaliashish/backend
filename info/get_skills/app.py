@@ -16,7 +16,7 @@ def create_response(status_code, message, results=None):
 
 def execute_query(connection, userId):
     with connection.cursor() as cursor:
-        query = '''SELECT S.name
+        query = '''SELECT S.id, S.name
                 FROM user_skills US
                 JOIN skills S
                 ON US.skillId = S.id WHERE US.userId = %s'''
