@@ -1,17 +1,8 @@
-import json
 from utils import (  # type: ignore
-    Database, set_response_headers, convert_datetime_in_dict
+    Database, create_response, convert_datetime_in_dict
 )
 
-HEADER = 'GET'
-
-
-def create_response(status_code, message, results=None):
-    return {
-        'statusCode': status_code,
-        'body': json.dumps({'message': message, 'results': results}),
-        'headers': set_response_headers(HEADER)
-    }
+METHOD_TYPE = 'GET'
 
 
 def execute_query(connection, userId):
@@ -28,11 +19,12 @@ def lambda_handler(event, context):
         connection = Database.connect()
         results = execute_query(connection, user_id)
         if not results:
-            return create_response(404, 'error', 'No results found.')
+            return create_response(404,
+                                   METHOD_TYPE, 'error', 'No results found.')
         final_results = [convert_datetime_in_dict(results)]
-        return create_response(200, 'success', final_results)
+        return create_response(200, METHOD_TYPE, 'success', final_results)
     except Exception as e:
         print(str(e))
-        return create_response(500, 'error', str(e))
+        return create_response(500, METHOD_TYPE, 'error', str(e))
     finally:
-        print('end of try except block')
+        Database.close(connection)

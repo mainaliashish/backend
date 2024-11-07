@@ -1,17 +1,9 @@
 import json
 from utils import (  # type: ignore
-    Database, set_response_headers
+    Database, create_response
 )
 
-HEADER = 'POST'
-
-
-def create_response(status_code, message, results=None):
-    return {
-        'statusCode': status_code,
-        'body': json.dumps({'message': message, 'results': results}),
-        'headers': set_response_headers(HEADER)
-    }
+METHOD_TYPE = 'POST'
 
 
 def create_note(cursor, contact_data):
@@ -44,11 +36,10 @@ def lambda_handler(event, context):
         with connection.cursor() as cursor:
             create_note(cursor, contact_data)
             connection.commit()
-        return create_response(201, 'success', contact_data)
+        return create_response(201, METHOD_TYPE, 'success', contact_data)
 
     except Exception as e:
         print(str(e))
-        return create_response(500, 'error', str(e))
+        return create_response(500, METHOD_TYPE, 'error', str(e))
     finally:
-        if connection:
-            Database.close()
+        Database.close(connection)

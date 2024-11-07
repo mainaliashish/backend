@@ -10,10 +10,10 @@ Globals:
     LoggingConfig:
       LogFormat: JSON
 Resources:
-  DatabaseLayer:
+  UtilityLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      LayerName: DBLayer
+      LayerName: UtilsLayer
       Description: A layer for setting up database connection
       ContentUri: layers/utils/
       CompatibleRuntimes:
@@ -25,7 +25,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -34,22 +34,6 @@ Resources:
           Properties:
             Path: /get_basic_info/{userId}
             Method: get
-  UpdateMyBasicInformationFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: info/update_basic_info/
-      Handler: app.lambda_handler
-      Runtime: python3.11
-      Layers:
-        - !Ref DatabaseLayer
-      Architectures:
-        - x86_64
-      Events:
-        GetBasicInfo:
-          Type: Api
-          Properties:
-            Path: /update_basic_info/{userId}/update
-            Method: put
   GetMyExtraInformationFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -57,7 +41,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -73,7 +57,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -89,7 +73,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -105,7 +89,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -121,7 +105,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -137,7 +121,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -153,7 +137,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:
@@ -169,7 +153,7 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.11
       Layers:
-        - !Ref DatabaseLayer
+        - !Ref UtilityLayer
       Architectures:
         - x86_64
       Events:

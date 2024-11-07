@@ -101,7 +101,7 @@ class MysqlPacket:
     def get_bytes(self, position, length=1):
         """Get 'length' bytes starting at 'position'.
 
-        Position is start of payload (first four packet header bytes are not
+        Position is start of payload (first four packet METHOD_TYPE bytes are not
         included) starting at index '0'.
 
         No error checking is done.  If requesting outside end of buffer
@@ -185,7 +185,7 @@ class MysqlPacket:
     def is_eof_packet(self):
         # http://dev.mysql.com/doc/internals/en/generic-response-packets.html#packet-EOF_Packet
         # Caution: \xFE may be LengthEncodedInteger.
-        # If \xFE is LengthEncodedInteger header, 8bytes followed.
+        # If \xFE is LengthEncodedInteger METHOD_TYPE, 8bytes followed.
         return self._data[0] == 0xFE and len(self._data) < 9
 
     def is_auth_switch_request(self):
