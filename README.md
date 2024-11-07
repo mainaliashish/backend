@@ -46,4 +46,4 @@ Follow these steps to run the project locally:
 
 ## ER Diagram for Portfolio Database
 
-![ER Diagram for Portfolio App](./images/ER-diagram.png)
+![ER Diagram for Portfolio App](./images/erd.png)
